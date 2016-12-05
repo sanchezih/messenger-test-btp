@@ -17,7 +17,6 @@ public class ProfileDAO {
         addProfile(session,beanp);        
         tx.commit();
         session.close();
-        
     }
     
     private void addProfile(Session session, Profile beanp){
@@ -27,7 +26,6 @@ public class ProfileDAO {
         profile.setFirstName(beanp.getFirstName());
         profile.setLastName(beanp.getLastName());
         profile.setCreated(beanp.getCreated());
-        
         session.save(profile);
     }
     

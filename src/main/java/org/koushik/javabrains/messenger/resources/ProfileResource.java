@@ -38,14 +38,18 @@ public class ProfileResource {
 			ProfileDAO profileDAO = new ProfileDAO();
 			return profileDAO.getProfile(profileName);
 		}
-		
-		/*
+				
 		@POST
-		public Profile addProfile(Profile profile){
-			ProfileDAO profile = new ProfileDAO();
-			return profileService.addProfile(profile);
+		public Response addProfile(Profile profile){
+			/*profile.setFirstName(profile.getFirstName());
+			profile.setLastName(profile.getLastName());
+			profile.setCreated(profile.getCreated());*/
+			
+			ProfileDAO prf = new ProfileDAO();
+			prf.addProfile(profile);
+			return Response.ok().build();
 		}
-		*/
+		
 		
 		@PUT
 		@Path("/{profileName}")
