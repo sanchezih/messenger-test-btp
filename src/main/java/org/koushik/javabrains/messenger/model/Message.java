@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-//LKSAJKSAJ
+
 @XmlRootElement
 @Entity
 @Table (name="messages")
