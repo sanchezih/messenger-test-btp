@@ -54,7 +54,7 @@ public class MessagesResources {
 		}
 		return messageService.getAllMessages();
 	}*/
-
+	
 	@POST
 	public Response addMessage(Message msj) {
 		MessageDAO message = new MessageDAO();
