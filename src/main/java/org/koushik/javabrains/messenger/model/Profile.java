@@ -15,9 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 public class Profile {
 
-	@Column
-	private long id;
-	@ProfileName
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String profileName;
 	@Column
@@ -30,19 +28,10 @@ public class Profile {
 	public Profile() {
 	}
 
-	public Profile(long id, String profileName, String firstName, String lastName) {
-		this.id = id;
+	public Profile(String profileName, String firstName, String lastName) {
 		this.profileName = profileName;
 		this.firstName = firstName;
 		this.lastName = lastName;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getProfileName() {

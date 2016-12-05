@@ -23,9 +23,7 @@ import org.koushik.javabrains.messenger.service.ProfileService;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(value ={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 
-public class ProfileResource {
-
-		private ProfileService profileService = new ProfileService();	
+public class ProfileResource {	
 		
 		@GET 
 		public List<Profile> getProfiles(){
