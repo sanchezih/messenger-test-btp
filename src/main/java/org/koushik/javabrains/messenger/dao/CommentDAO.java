@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.koushik.javabrains.messenger.database.DatabaseClass;
+import org.koushik.javabrains.messenger.exception.DataNotFoundException;
 import org.koushik.javabrains.messenger.model.Comment;
 import org.koushik.javabrains.messenger.model.ErrorMessage;
 import org.koushik.javabrains.messenger.model.Message;
@@ -39,12 +40,16 @@ public class CommentDAO {
         session.save(comment);
     }
     
-    public List<Comment> getComment(){
+    public List<Comment> getAllComments(long messageId){
         Session session = SessionUtil.getSession();    
-        Query query = session.createQuery("from Comment");
+        Query query = session.createQuery("from Comment where messageId = :messageId");
+        query.setLong("messageId",messageId);
         List<Comment> comment =  query.list();
         return comment;
     }
+    
+   
+  
  
     public int deleteComment(long id) {
         Session session = SessionUtil.getSession();
@@ -76,8 +81,10 @@ public class CommentDAO {
             session.close();
             return rowCount;
     }
+}
+
     // agregado del commentservice
-	private Map<Long, Message> messages = DatabaseClass.getMessages();
+/*	private Map<Long, Message> messages = DatabaseClass.getMessages();
 	
 	public List<Comment> getAllComments(long messageId){
 		Map<Long, Comment> comments = messages.get(messageId).getComments();
@@ -121,3 +128,4 @@ public class CommentDAO {
 		return comments.remove(commentId);
 	}
 }
+*/
