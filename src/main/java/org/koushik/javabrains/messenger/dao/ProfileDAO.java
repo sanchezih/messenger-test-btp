@@ -63,13 +63,12 @@ public class ProfileDAO {
                return 0;  
          Session session = SessionUtil.getSession();
             Transaction tx = session.beginTransaction();
-            String hql = "update Profile set firstName=:firstName, lastName=:lastName, created=:created where profileName = :profileName";
+            String hql = "update Profile set firstName=:firstName, lastName=:lastName where profileName = :profileName";
             Query query = session.createQuery(hql);
             query.setString("profileName",profileName);
-            query.setString("profileName",prf.getProfileName());
             query.setString("firstName",prf.getFirstName());
             query.setString("lastName", prf.getLastName());
-            query.setDate("created", prf.getCreated());
+     
             int rowCount = query.executeUpdate();
             System.out.println("Rows affected: " + rowCount);
             tx.commit();

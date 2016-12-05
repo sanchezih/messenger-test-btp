@@ -20,19 +20,31 @@ public class Comment {
     private String author;
     @Column
     private Date created;
+    @Column
+    private long messageId;
 	
 
 	public Comment(){
 		
 	}
 	
-	public Comment(long id, String message, String author){
+	public Comment(long id, String message, String author, long messageId){
 		this.id=id;
 		this.message = message;
 		this.author = author;
 		this.created = new Date();
+		this.messageId = messageId;
 	}
 	
+	
+	public long getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(long messageId) {
+		this.messageId = messageId;
+	}
+
 	public long getId() {
 		return id;
 	}

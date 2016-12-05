@@ -48,8 +48,23 @@ public class CommentDAO {
         return comment;
     }
     
-   
-  
+/*    __**_**
+    _**___**
+    _**___**_________****
+    _**___**_______**___****
+    _**__**_______*___**___**
+    __**__*______*__**__***__**
+    ___**__*____*__**_____**__*
+    ____**_**__**_**________**
+    ____**___**__**
+    ___*___________*
+    __*_____________*
+    _*____0_____0____*
+    _*_______@_______*
+    _*_______________*
+    ___*_____U_____*
+    _____**_____** 
+  */
  
     public int deleteComment(long id) {
         Session session = SessionUtil.getSession();
@@ -69,12 +84,10 @@ public class CommentDAO {
                return 0;  
          Session session = SessionUtil.getSession();
             Transaction tx = session.beginTransaction();
-            String hql = "update Comment set message=:message, author=:author, created=:created where id = :id";
+            String hql = "update Comment set message=:message where id = :id";
             Query query = session.createQuery(hql);
-            query.setInteger("id",id);
             query.setString("message",cmt.getMessage());
-            query.setString("author",cmt.getAuthor());
-            query.setDate("created", cmt.getCreated());
+            query.setInteger("id",id);  
             int rowCount = query.executeUpdate();
             System.out.println("Rows affected: " + rowCount);
             tx.commit();
