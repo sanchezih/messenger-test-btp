@@ -15,10 +15,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 public class Profile {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
 	@Column
+	private long id;
+	@ProfileName
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String profileName;
 	@Column
 	private String firstName;

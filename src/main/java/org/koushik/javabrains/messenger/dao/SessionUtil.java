@@ -1,4 +1,4 @@
-package com.koushik.javabrains.messenger.dao;
+package org.koushik.javabrains.messenger.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

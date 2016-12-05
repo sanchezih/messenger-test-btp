@@ -1,4 +1,4 @@
-package com.koushik.javabrains.messenger.dao;
+package org.koushik.javabrains.messenger.dao;
 
 import java.util.List;
 
@@ -31,13 +31,20 @@ public class ProfileDAO {
         session.save(profile);
     }
     
-    public List<Profile> getProfile(){
+    public List<Profile> getAllProfiles(){
         Session session = SessionUtil.getSession();    
         Query query = session.createQuery("from Profile");
         List<Profile> profile =  query.list();
         return profile;
     }
- 
+    
+    public Profile getProfile(String profileName){
+    	Session session = SessionUtil.getSession();
+    	Profile profile = (Profile)session.get(Profile.class,profileName);
+    	session.close();
+    	return profile;
+    }
+   
     public int deleteProfile(String profileName) {
         Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
@@ -56,7 +63,7 @@ public class ProfileDAO {
                return 0;  
          Session session = SessionUtil.getSession();
             Transaction tx = session.beginTransaction();
-            String hql = "update Profile set profileName=:profileName, firstName=:firstName, lastName=:lastName, created=:created where id = :id";
+            String hql = "update Profile set firstName=:firstName, lastName=:lastName, created=:created where profileName = :profileName";
             Query query = session.createQuery(hql);
             query.setString("profileName",profileName);
             query.setString("profileName",prf.getProfileName());

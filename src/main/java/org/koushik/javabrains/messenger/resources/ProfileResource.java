@@ -11,45 +11,61 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.koushik.javabrains.messenger.dao.MessageDAO;
+import org.koushik.javabrains.messenger.dao.ProfileDAO;
+import org.koushik.javabrains.messenger.model.Message;
 import org.koushik.javabrains.messenger.model.Profile;
 import org.koushik.javabrains.messenger.service.ProfileService;
 
 @Path("/profiles")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(value ={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 
 public class ProfileResource {
 
-		private ProfileService profileService = new ProfileService();
+		private ProfileService profileService = new ProfileService();	
 		
 		@GET 
 		public List<Profile> getProfiles(){
-			return profileService.getAllProfiles();
+			ProfileDAO dao = new ProfileDAO();
+			List profiles = dao.getAllProfiles();
+			return profiles;
 		}
-		
-		@POST
-		public Profile addProfile(Profile profile){
-			return profileService.addProfile(profile);
-		}
-		
-		@PUT
-		@Path("/{profileName}")
-		public Profile updateProfile(@PathParam("messageId")String profileName,Profile profile){
-			profile.setProfileName(profileName);
-			return profileService.updateProfile(profile);
-		}
-		
-		@DELETE
-		@Path("/{profileName}")
-		public void deleteProfile(@PathParam("profileName")String profileName){
-			profileService.removeProfile(profileName);
-		}
-		
+			
 		@GET
 		@Path("/{profileName}")
 		public Profile getProfile(@PathParam("profileName") String profileName){
-			return profileService.getProfile(profileName);
+			ProfileDAO profileDAO = new ProfileDAO();
+			return profileDAO.getProfile(profileName);
+		}
+		
+		/*
+		@POST
+		public Profile addProfile(Profile profile){
+			ProfileDAO profile = new ProfileDAO();
+			return profileService.addProfile(profile);
+		}
+		*/
+		
+		@PUT
+		@Path("/{profileName}")
+		public int updateProfile(@PathParam("profileName")String profileName,Profile profile){
+			ProfileDAO profileDAO = new ProfileDAO();
+			profile.setProfileName(profileName);
+			return profileDAO.updateProfile(profileName, profile);
+		}
+			
+		@DELETE
+		@Path("/{profileName}")
+		public Response deleteProfile(@PathParam("profileName")String profileName){
+			ProfileDAO dao = new ProfileDAO();
+			int count = dao.deleteProfile(profileName);
+			if(count == 0){
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
+			return Response.ok().build();
 		}
 
 	}

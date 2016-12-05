@@ -17,10 +17,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.koushik.javabrains.messenger.dao.MessageDAO;
 import org.koushik.javabrains.messenger.model.Message;
 import org.koushik.javabrains.messenger.resources.beans.MessageFilterBean;
-
-import com.koushik.javabrains.messenger.dao.MessageDAO;
 
 
 @Path("/messages")
@@ -70,7 +69,8 @@ public class MessagesResources {
 	public int updateMessage(@PathParam("messageId") long id, Message message) {
 		MessageDAO messageDAO = new MessageDAO();
 		message.setId(id);
-		return messageDAO.updateMessage(id, message);}
+		return messageDAO.updateMessage(id, message);
+	}
 	
 	@DELETE
 	@Path("/{messageId}")
@@ -91,6 +91,7 @@ public class MessagesResources {
 		return messageDAO.getMessage(id);
 		
 	}
+	
 	 @GET
 	    public List<Message> getMessage() {
 	       MessageDAO dao = new MessageDAO();

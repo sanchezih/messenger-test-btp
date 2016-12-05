@@ -1,4 +1,4 @@
-package com.koushik.javabrains.messenger.dao;
+package org.koushik.javabrains.messenger.dao;
 
 import java.util.List;
 import org.hibernate.Query;
