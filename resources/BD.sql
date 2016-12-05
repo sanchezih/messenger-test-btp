@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `message` varchar(250) NOT NULL DEFAULT '0',
   `created` date DEFAULT NULL,
   `author` varchar(50) DEFAULT NULL,
+  `messageId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
