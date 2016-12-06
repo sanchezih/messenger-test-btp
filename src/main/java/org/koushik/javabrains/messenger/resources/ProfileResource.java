@@ -21,53 +21,55 @@ import org.koushik.javabrains.messenger.service.ProfileService;
 
 @Path("/profiles")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(value ={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
+@Produces(value = { MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
 
-public class ProfileResource {	
-		
-		@GET 
-		public List<Profile> getProfiles(){
-			ProfileDAO dao = new ProfileDAO();
-			List profiles = dao.getAllProfiles();
-			return profiles;
-		}
-			
-		@GET
-		@Path("/{profileName}")
-		public Profile getProfile(@PathParam("profileName") String profileName){
-			ProfileDAO profileDAO = new ProfileDAO();
-			return profileDAO.getProfile(profileName);
-		}
-				
-		@POST
-		public Response addProfile(Profile profile){
-			/*profile.setFirstName(profile.getFirstName());
-			profile.setLastName(profile.getLastName());
-			profile.setCreated(profile.getCreated());*/
-			
-			ProfileDAO prf = new ProfileDAO();
-			prf.addProfile(profile);
-			return Response.ok().build();
-		}
-		
-		
-		@PUT
-		@Path("/{profileName}")
-		public int updateProfile(@PathParam("profileName")String profileName,Profile profile){
-			ProfileDAO profileDAO = new ProfileDAO();
-			profile.setProfileName(profileName);
-			return profileDAO.updateProfile(profileName, profile);
-		}
-			
-		@DELETE
-		@Path("/{profileName}")
-		public Response deleteProfile(@PathParam("profileName")String profileName){
-			ProfileDAO dao = new ProfileDAO();
-			int count = dao.deleteProfile(profileName);
-			if(count == 0){
-				return Response.status(Response.Status.BAD_REQUEST).build();
-			}
-			return Response.ok().build();
-		}
+public class ProfileResource {
 
+	@GET
+	public List<Profile> getProfiles() {
+		ProfileDAO dao = new ProfileDAO();
+		List profiles = dao.getAllProfiles();
+		return profiles;
 	}
+
+	@GET
+	@Path("/{profileName}")
+	public Profile getProfile(@PathParam("profileName") String profileName) {
+		ProfileDAO profileDAO = new ProfileDAO();
+		return profileDAO.getProfile(profileName);
+	}
+
+	@POST
+	public Response addProfile(Profile profile) {
+
+		ProfileDAO dao = new ProfileDAO();
+		dao.addProfile(profile);
+		
+		
+		return Response.ok().build();
+	}
+
+	@PUT
+	@Path("/{profileName}")
+	public Response updateProfile(@PathParam("profileName") String profileName, Profile profile) {
+		ProfileDAO dao = new ProfileDAO();
+		profile.setProfileName(profileName);
+		int count = dao.updateProfile(profileName, profile);
+		if (count == 0) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+		return Response.ok().build();
+	}
+
+	@DELETE
+	@Path("/{profileName}")
+	public Response deleteProfile(@PathParam("profileName") String profileName) {
+		ProfileDAO dao = new ProfileDAO();
+		int count = dao.deleteProfile(profileName);
+		if (count == 0) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+		return Response.ok().build();
+	}
+
+}
