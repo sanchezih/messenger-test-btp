@@ -1,33 +1,24 @@
 package org.koushik.javabrains.messenger.dao;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.koushik.javabrains.messenger.database.DatabaseClass;
-import org.koushik.javabrains.messenger.exception.DataNotFoundException;
 import org.koushik.javabrains.messenger.model.Comment;
-import org.koushik.javabrains.messenger.model.ErrorMessage;
-import org.koushik.javabrains.messenger.model.Message;
 
  
 public class CommentDAO {
     
     public void addComment(Comment beanc){
+    	try {
         Session session = SessionUtil.getSession();        
         Transaction tx = session.beginTransaction();
         addComment(session,beanc);        
         tx.commit();
         session.close();
-        
+    } catch (Exception e){
+    	
+    }
     }
     
     private void addComment(Session session, Comment beanc){
@@ -79,7 +70,7 @@ public class CommentDAO {
         return rowCount;
     }
     
-    public int updateComment(int id, Comment cmt){
+    public int updateComment(long id, Comment cmt){
          if(id <=0)  
                return 0;  
          Session session = SessionUtil.getSession();
@@ -87,7 +78,7 @@ public class CommentDAO {
             String hql = "update Comment set message=:message where id = :id";
             Query query = session.createQuery(hql);
             query.setString("message",cmt.getMessage());
-            query.setInteger("id",id);  
+            query.setLong("id",id);  
             int rowCount = query.executeUpdate();
             System.out.println("Rows affected: " + rowCount);
             tx.commit();
